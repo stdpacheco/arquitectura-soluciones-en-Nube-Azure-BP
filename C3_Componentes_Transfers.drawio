@@ -1,0 +1,94 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0" version="28.1.2">
+  <diagram name="C3 - Componentes (Transfers Service)" id="0">
+    <mxGraphModel dx="2229" dy="1860" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="api" value="🧩 API Controller (REST) &#xa;JWT/Scopes" style="shape=rectangle;rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="-120" y="-110" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="grpc" value="⚡ gRPC Endpoint (interno)" style="shape=rectangle;rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="-120" y="80" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="app" value="🧠 Application Layer &#xa;- TransferOrchestrator (Saga)&#xa; - Idempotency Filter (Idempotency-Key) &#xa;- Validation (FluentValidation)" style="shape=rectangle;rounded=1;fillColor:#fff2cc;strokeColor:#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="260" y="-40" width="280" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="domain" value="🏛️ Domain&#xa; - Entities: Account, Transfer,Beneficiary &#xa;- Policies: límites, horarios, sanciones" style="shape=rectangle;rounded=1;fillColor:#e1f5e1;strokeColor:#82b366;" parent="1" vertex="1">
+          <mxGeometry x="-170" y="230" width="250" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="core" value="🔌 CoreBankingClient &#xa;(REST/SOAP)" style="shape=rectangle;rounded=1;fillColor:#f8cecc;strokeColor:#b85450;" parent="1" vertex="1">
+          <mxGeometry x="850" y="-110" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="switch" value="🔌 InterbankSwitchClient &#xa;(REST / ISO 8583 TCP)" style="shape=rectangle;rounded=1;fillColor:#f8cecc;strokeColor:#b85450;" parent="1" vertex="1">
+          <mxGeometry x="850" y="-10" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="notif" value="🔔 NotificationsClient" style="shape=rectangle;rounded=1;fillColor:#f8cecc;strokeColor:#b85450;" parent="1" vertex="1">
+          <mxGeometry x="850" y="100" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="res" value="🛡️ Resiliencia (Polly) &#xa;- Retry + jitter&#xa; - Timeout &#xa;- Circuit Breaker" style="shape=rectangle;rounded=1;fillColor:#e1d5e7;strokeColor:#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="850" y="210" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="outbox" value="📦 Outbox / Inbox" style="shape=rectangle;rounded=1;fillColor:#d5e8d4;strokeColor:#82b366;" parent="1" vertex="1">
+          <mxGeometry x="-110" y="495" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="auditpub" value="📝 AuditPublisher" style="shape=rectangle;rounded=1;fillColor:#d5e8d4;strokeColor:#82b366;" parent="1" vertex="1">
+          <mxGeometry x="580" y="340" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bus" value="📩 Azure Service Bus &#xa;(Topics/Queues)" style="shape=ellipse;fillColor:#d5e8d4;strokeColor:#82b366;" parent="1" vertex="1">
+          <mxGeometry x="700" y="480" width="160" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="sql" value="&#xa;🗄️ Azure SQL Database&#xa; (operacional)" style="shape=cylinder;fillColor:#e1d5e7;strokeColor:#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="240" y="470" width="160" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="cosmos" value="&#xa;☁️ Cosmos DB &#xa;(read model)" style="shape=cylinder;fillColor:#e1d5e7;strokeColor:#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="440" y="470" width="160" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="cache" value="⚙️ Redis Cache &#xa;(opcional)" style="shape=ellipse;fillColor:#fff2cc;strokeColor:#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="850" y="315" width="170" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="endArrow=block;rounded=1;html=1;strokeColor=#000000;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="api" target="app" edge="1">
+          <mxGeometry as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="" style="endArrow=block;rounded=1;html=1;strokeColor=#000000;" parent="1" source="grpc" target="app" edge="1">
+          <mxGeometry as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="Reglas de negocio" style="endArrow=block;rounded=1;html=1;strokeColor=#000000;" parent="1" source="app" target="domain" edge="1">
+          <mxGeometry as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="Reserva/afectación de cuenta" style="endArrow=block;rounded=1;html=1;strokeColor=#000000;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="app" target="core" edge="1">
+          <mxGeometry as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="Envío/confirmación/reversal" style="endArrow=block;rounded=1;html=1;strokeColor=#000000;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="app" target="switch" edge="1">
+          <mxGeometry as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="Evento de notificación" style="endArrow=block;rounded=1;html=1;strokeColor=#000000;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="app" target="notif" edge="1">
+          <mxGeometry as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="Policies de resiliencia" style="endArrow=block;rounded=1;html=1;strokeColor=#000000;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="app" target="res" edge="1">
+          <mxGeometry as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="Evento transaccional" style="endArrow=block;rounded=1;html=1;strokeColor=#000000;" parent="1" source="app" target="outbox" edge="1">
+          <mxGeometry as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="Persistencia confiable" style="endArrow=block;rounded=1;html=1;strokeColor=#000000;" parent="1" source="outbox" target="sql" edge="1">
+          <mxGeometry as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="Eventos de auditoría" style="endArrow=block;rounded=1;html=1;strokeColor=#000000;" parent="1" source="auditpub" target="bus" edge="1">
+          <mxGeometry as="geometry" />
+        </mxCell>
+        <mxCell id="e11" value="Transacción" style="endArrow=block;rounded=1;html=1;strokeColor=#000000;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="app" target="sql" edge="1">
+          <mxGeometry as="geometry" />
+        </mxCell>
+        <mxCell id="e12" value="Materialized view (CQRS)" style="endArrow=block;rounded=1;html=1;strokeColor=#000000;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="app" target="cosmos" edge="1">
+          <mxGeometry as="geometry" />
+        </mxCell>
+        <mxCell id="e13" value="Auditar operación" style="endArrow=block;rounded=1;html=1;strokeColor=#000000;" parent="1" source="app" target="auditpub" edge="1">
+          <mxGeometry as="geometry" />
+        </mxCell>
+        <mxCell id="e14" value="Cache-aside (opcional)" style="endArrow=block;rounded=1;html=1;strokeColor=#000000;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="app" target="cache" edge="1">
+          <mxGeometry as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
